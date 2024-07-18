@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://127.0.0.1:5433/apica
+    username: postgres
+    password: postgres
+    hikari:
+      connection-test-query: "SELECT 1"
+      pool-name: finopsreportscronjob_pool
+      minimum-idle: 1
+      maximum-pool-size: 10
+  jpa:
+    database: postgresql
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+
+kafka:
+  bootstrap-servers: localhost:9092
+  consumer:
+    user-service:
+      group-id: user-service-group
+      bootstrap-servers: ${kafka.bootstrap-servers}
+    journal-service:
+      group-id: journal-service-group
+      bootstrap-servers: ${kafka.bootstrap-servers}
